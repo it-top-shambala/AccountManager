@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.DAL", "AccountManager.DAL\AccountManager.DAL.csproj", "{6E28D997-79C3-4B0A-A16A-E9BAFFEC8B69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.Models", "AccountManager.Models\AccountManager.Models.csproj", "{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{6E28D997-79C3-4B0A-A16A-E9BAFFEC8B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E28D997-79C3-4B0A-A16A-E9BAFFEC8B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E28D997-79C3-4B0A-A16A-E9BAFFEC8B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
