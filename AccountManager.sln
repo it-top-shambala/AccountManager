@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.DAL", "Accou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.Models", "AccountManager.Models\AccountManager.Models.csproj", "{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.BL", "AccountManager.BL\AccountManager.BL.csproj", "{E91767C3-6C1C-4769-B19D-37D083C27BBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49D7C503-B5D2-427A-8D7C-4D2E163C5A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E91767C3-6C1C-4769-B19D-37D083C27BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E91767C3-6C1C-4769-B19D-37D083C27BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E91767C3-6C1C-4769-B19D-37D083C27BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E91767C3-6C1C-4769-B19D-37D083C27BBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
