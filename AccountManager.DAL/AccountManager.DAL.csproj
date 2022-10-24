@@ -6,4 +6,19 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\AccountManager.Models\AccountManager.Models.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.123" />
+      <PackageReference Include="MySql.Data" Version="8.0.31" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="DbConfigLib">
+        <HintPath>DbConfigLib.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
