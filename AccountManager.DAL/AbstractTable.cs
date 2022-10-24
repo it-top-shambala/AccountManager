@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace AccountManager.DAL;
 
-public abstract class AbstractTable : ICrud
+public abstract class AbstractTable<T> : ICrud<T> where T : IModel
 {
     protected readonly MySqlConnection Db;
     protected readonly MySqlCommand SqlCommand;
@@ -15,9 +15,9 @@ public abstract class AbstractTable : ICrud
         SqlCommand = new MySqlCommand() { Connection = Db };
     }
 
-    public abstract void Insert(IModel model);
-    public abstract IEnumerable<IModel> GetAll();
-    public abstract IModel GetById(int id);
-    public abstract void Update(IModel model);
+    public abstract void Insert(T model);
+    public abstract IEnumerable<T> GetAll();
+    public abstract T GetById(int id);
+    public abstract void Update(T model);
     public abstract void Delete(int id);
 }

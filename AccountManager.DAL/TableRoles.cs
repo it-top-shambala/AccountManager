@@ -3,14 +3,19 @@ using Dapper;
 
 namespace AccountManager.DAL;
 
-public class TableRoles : AbstractTable
+public class TableRoles : AbstractTable<Role>
 {
-    public override void Insert(IModel model)
+    public override void Insert(Role model)
     {
-        //TODO
+        Db.Open();
+
+        SqlCommand.CommandText = $"INSERT INTO table_roles(name) VALUES ('{model.Name}')";
+        SqlCommand.ExecuteNonQuery();
+        
+        Db.Close();
     }
 
-    public override IEnumerable<IModel> GetAll()
+    public override IEnumerable<Role> GetAll()
     {
         Db.Open();
 
@@ -22,7 +27,7 @@ public class TableRoles : AbstractTable
         return roles;
     }
 
-    public override IModel GetById(int id)
+    public override Role GetById(int id)
     {
         Db.Open();
 
@@ -34,13 +39,11 @@ public class TableRoles : AbstractTable
         return role;
     }
 
-    public override void Update(IModel model)
+    public override void Update(Role model)
     {
-        var name = (model as Role).Name;
-        var id = (model as Role).Id;
         Db.Open();
         
-        SqlCommand.CommandText = $"UPDATE table_roles SET name = {name} WHERE role_id = {id}";
+        SqlCommand.CommandText = $"UPDATE table_roles SET name = {model.Name} WHERE role_id = {model.Id}";
         SqlCommand.ExecuteNonQuery();
         
         Db.Close();
