@@ -1,6 +1,6 @@
 ﻿namespace AccountManager.Models;
 
-public class Account
+public class Account : IModel
 {
     public int Id { get; set; }
     public string Login { get; set; }
