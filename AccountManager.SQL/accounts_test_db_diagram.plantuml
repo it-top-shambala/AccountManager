@@ -1,0 +1,28 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class table_accounts {
+   login: varchar(75)
+   password: varchar(20)
+   is_delete: tinyint(1)
+   role_id: int
+   account_id: int
+}
+class table_roles {
+   name: varchar(50)
+   role_id: int
+}
+class table_users {
+   first_name: varchar(125)
+   last_name: varchar(255)
+   email: varchar(125)
+   tel: varchar(20)
+   user_id: int
+}
+
+table_accounts  -[#595959,plain]-^  table_roles    : "role_id"
+table_users     -[#595959,plain]-^  table_accounts : "user_id:account_id"
+@enduml
