@@ -1,8 +1,7 @@
 ﻿namespace AccountManager.Models;
 
-public class Account : IModel
+public class Account : AbstractModel
 {
-    public int Id { get; set; }
     public string Login { get; set; }
     public string Password { get; set; }
     public bool IsDelete { get; set; }

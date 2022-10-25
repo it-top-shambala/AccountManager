@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace AccountManager.DAL;
 
-public abstract class AbstractTable<T> : ICrud<T> where T : IModel
+public abstract class AbstractTable<T> : ICrud<T> where T : AbstractModel
 {
     protected readonly MySqlConnection Db;
     protected readonly MySqlCommand SqlCommand;

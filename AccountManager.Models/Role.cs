@@ -1,7 +1,6 @@
 ﻿namespace AccountManager.Models;
 
-public class Role : IModel
+public class Role : AbstractModel
 {
-    public int Id { get; set; }
     public string Name { get; set; }
 }

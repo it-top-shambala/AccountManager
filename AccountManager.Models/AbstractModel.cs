@@ -1,6 +1,6 @@
 ﻿namespace AccountManager.Models;
 
-public interface IModel
+public abstract class AbstractModel
 {
     public int Id { get; set; }
 }

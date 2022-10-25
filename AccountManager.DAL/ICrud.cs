@@ -2,7 +2,7 @@
 
 namespace AccountManager.DAL;
 
-public interface ICrud<T> where T : IModel
+public interface ICrud<T> where T : AbstractModel
 {
     public void Insert(T model);
     public IEnumerable<T> GetAll();
