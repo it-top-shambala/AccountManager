@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.Models", "Ac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.BL", "AccountManager.BL\AccountManager.BL.csproj", "{E91767C3-6C1C-4769-B19D-37D083C27BBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManager.App.Avalonia", "AccountManager.App.Avalonia\AccountManager.App.Avalonia.csproj", "{08BA7104-4227-4CE6-9E35-C99AEED13B64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{E91767C3-6C1C-4769-B19D-37D083C27BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E91767C3-6C1C-4769-B19D-37D083C27BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E91767C3-6C1C-4769-B19D-37D083C27BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08BA7104-4227-4CE6-9E35-C99AEED13B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08BA7104-4227-4CE6-9E35-C99AEED13B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08BA7104-4227-4CE6-9E35-C99AEED13B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08BA7104-4227-4CE6-9E35-C99AEED13B64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
