@@ -1,6 +1,4 @@
-﻿using AccountManager.Models;
-
-namespace AccountManager.DAL.Tables;
+﻿namespace AccountManager.DAL.Tables;
 
 public class DataBaseContext : AbstractBaseContext
 {

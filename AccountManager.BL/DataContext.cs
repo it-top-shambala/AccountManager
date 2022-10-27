@@ -39,6 +39,7 @@ public class DataContext
         {
             return (result: false, errorMsg: "Пользователь с такими логином и паролем не найден.", string.Empty);
         }
+
         var role = GetRole(account.RoleId);
         if (role is null)
         {

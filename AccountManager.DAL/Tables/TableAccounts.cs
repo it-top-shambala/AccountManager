@@ -6,7 +6,8 @@ namespace AccountManager.DAL.Tables;
 public class TableAccounts : AbstractTable<Account>
 {
     public override void Insert(Account model)
-    { }
+    {
+    }
 
     public override IEnumerable<Account> GetAll()
     {
@@ -22,7 +23,8 @@ public class TableAccounts : AbstractTable<Account>
 
     public override void Update(Account model)
     {
-        var sql = $"UPDATE table_accounts SET login = {model.Login}, password = {model.Password}, is_delete = {model.IsDelete}, role_id = {model.RoleId} WHERE account_id = {model.AccountId}";
+        var sql =
+            $"UPDATE table_accounts SET login = {model.Login}, password = {model.Password}, is_delete = {model.IsDelete}, role_id = {model.RoleId} WHERE account_id = {model.AccountId}";
         UpdateEntity(sql);
     }
 

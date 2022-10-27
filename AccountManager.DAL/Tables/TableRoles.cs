@@ -11,7 +11,7 @@ public class TableRoles : AbstractTable<Role>
 
         SqlCommand.CommandText = $"INSERT INTO table_roles(name) VALUES ('{model.Name}')";
         SqlCommand.ExecuteNonQuery();
-        
+
         Db.Close();
     }
 

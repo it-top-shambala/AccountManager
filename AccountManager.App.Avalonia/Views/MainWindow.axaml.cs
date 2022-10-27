@@ -1,12 +1,11 @@
 using Avalonia.Controls;
 
-namespace AccountManager.App.Avalonia.Views
+namespace AccountManager.App.Avalonia.Views;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

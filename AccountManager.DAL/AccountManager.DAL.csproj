@@ -1,24 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\AccountManager.Models\AccountManager.Models.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccountManager.Models\AccountManager.Models.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.0.123" />
-      <PackageReference Include="MySql.Data" Version="8.0.31" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123"/>
+    <PackageReference Include="MySql.Data" Version="8.0.31"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <Reference Include="DbConfigLib">
-        <HintPath>DbConfigLib.dll</HintPath>
-      </Reference>
-    </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DbConfigLib">
+      <HintPath>DbConfigLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>

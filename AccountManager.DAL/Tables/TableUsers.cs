@@ -5,7 +5,8 @@ namespace AccountManager.DAL.Tables;
 public class TableUsers : AbstractTable<User>
 {
     public override void Insert(User model)
-    { }
+    {
+    }
 
     public override IEnumerable<User> GetAll()
     {
@@ -21,10 +22,12 @@ public class TableUsers : AbstractTable<User>
 
     public override void Update(User model)
     {
-        var sql = $"UPDATE table_users SET first_name = {model.FirstName}, last_name = {model.LastName}, email = {model.Email}, tel = {model.Tel} WHERE user_id = {model.UserId}";
+        var sql =
+            $"UPDATE table_users SET first_name = {model.FirstName}, last_name = {model.LastName}, email = {model.Email}, tel = {model.Tel} WHERE user_id = {model.UserId}";
         UpdateEntity(sql);
     }
 
     public override void Delete(int id)
-    { }
+    {
+    }
 }

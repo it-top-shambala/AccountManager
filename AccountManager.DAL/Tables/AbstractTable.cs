@@ -26,9 +26,9 @@ public abstract class AbstractTable<T> : ICrud<T> where T : IModel
     protected T GetEntityById(string sql)
     {
         Db.Open();
-        
+
         var entity = Db.QuerySingle<T>(sql);
-        
+
         Db.Close();
 
         return entity;
@@ -37,9 +37,9 @@ public abstract class AbstractTable<T> : ICrud<T> where T : IModel
     protected IEnumerable<T> GetAllEntities(string sql)
     {
         Db.Open();
-        
+
         var entities = Db.Query<T>(sql);
-        
+
         Db.Close();
 
         return entities;
@@ -48,10 +48,10 @@ public abstract class AbstractTable<T> : ICrud<T> where T : IModel
     protected void UpdateEntity(string sql)
     {
         Db.Open();
-        
+
         SqlCommand.CommandText = sql;
         SqlCommand.ExecuteNonQuery();
-        
+
         Db.Close();
     }
 }
