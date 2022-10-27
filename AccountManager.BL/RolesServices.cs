@@ -3,7 +3,7 @@ using AccountManager.Models;
 
 namespace AccountManager.BL;
 
-public class RolesServices
+public class RolesServices : ICrud<Role>
 {
     private readonly ICrud<Role> _crud;
 

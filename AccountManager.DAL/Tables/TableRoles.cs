@@ -1,7 +1,7 @@
 ﻿using AccountManager.Models;
 using Dapper;
 
-namespace AccountManager.DAL;
+namespace AccountManager.DAL.Tables;
 
 public class TableRoles : AbstractTable<Role>
 {
@@ -17,36 +17,20 @@ public class TableRoles : AbstractTable<Role>
 
     public override IEnumerable<Role> GetAll()
     {
-        Db.Open();
-
         const string SQL = "SELECT role_id, name FROM table_roles";
-        var roles = Db.Query<Role>(SQL);
-        
-        Db.Close();
-
-        return roles;
+        return GetAllEntities(SQL);
     }
 
     public override Role GetById(int id)
     {
-        Db.Open();
-
         var sql = $"SELECT role_id, name FROM table_roles WHERE role_id = {id}";
-        var role = Db.QuerySingle<Role>(sql);
-        
-        Db.Close();
-
-        return role;
+        return GetEntityById(sql);
     }
 
     public override void Update(Role model)
     {
-        Db.Open();
-        
-        SqlCommand.CommandText = $"UPDATE table_roles SET name = {model.Name} WHERE role_id = {model.Id}";
-        SqlCommand.ExecuteNonQuery();
-        
-        Db.Close();
+        var sql = $"UPDATE table_roles SET name = {model.Name} WHERE role_id = {model.RoleId}";
+        UpdateEntity(sql);
     }
 
     public override void Delete(int id)

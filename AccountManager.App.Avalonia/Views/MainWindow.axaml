@@ -3,7 +3,7 @@
         xmlns:vm="using:AccountManager.App.Avalonia.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
         x:Class="AccountManager.App.Avalonia.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="AccountManager.App.Avalonia">
@@ -12,6 +12,31 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid RowDefinitions="*, 3*">
+        <TextBlock Grid.Row="0" Text="Авторизация"/>
+        
+        <StackPanel Grid.Row="1" 
+                    Orientation="Vertical"
+                    Spacing="5">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Пользователь"/>
+                <TextBox Text="{Binding Path=InputLogin, Mode=TwoWay}"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Пароль"/>
+                <TextBox Text="{Binding Path=InputPassword, Mode=TwoWay}"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Войти"
+                        Command="{Binding Login}"/>
+                <Button Content="Очистить"
+                        Command="{Binding Clear}"/>
+            </StackPanel>
+            
+            <TextBlock Text="{Binding Output}"/>
+        </StackPanel>
+    </Grid>
 
 </Window>
