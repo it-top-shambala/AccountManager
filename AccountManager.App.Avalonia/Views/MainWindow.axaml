@@ -3,14 +3,12 @@
         xmlns:vm="using:AccountManager.App.Avalonia.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
+        xmlns:p1="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="300"
+        Width="450" Height="300"
         x:Class="AccountManager.App.Avalonia.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="AccountManager.App.Avalonia">
-
-    <Window.Styles>
-        <StyleInclude Source="/Styles.axaml" />
-    </Window.Styles>
 
     <Design.DataContext>
         <vm:MainWindowViewModel />
@@ -19,38 +17,46 @@
     <Grid RowDefinitions="*, 3*">
         <TextBlock Grid.Row="0"
                    Text="Авторизация"
-                   Classes="title" />
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Classes="Headline2"/>
 
         <StackPanel Grid.Row="1"
                     Orientation="Vertical"
-                    Spacing="5">
+                    Spacing="5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal"
-                        Classes="input_container">
-                <Label Content="Пользователь"
-                       Classes="input_label" />
+                        HorizontalAlignment="Center">
                 <TextBox Text="{Binding Path=InputLogin, Mode=TwoWay}"
-                         Classes="input_text" />
+                         UseFloatingWatermark="True"
+                         p1:TextFieldAssist.Label="Пользователь"
+                         Width="200"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
-                        Classes="input_container">
-                <Label Content="Пароль"
-                       Classes="input_label" />
+                        HorizontalAlignment="Center">
                 <TextBox Text="{Binding Path=InputPassword, Mode=TwoWay}"
-                         Classes="input_text" />
+                         PasswordChar="-" Classes="revealPasswordButton"
+                         UseFloatingWatermark="True"
+                         p1:TextFieldAssist.Label="Пароль"
+                         Width="200"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
-                        Classes="input_container">
+                        Spacing="7"
+                        HorizontalAlignment="Center">
                 <Button Content="Войти"
-                        Command="{Binding Login}"
-                        Classes="button_login" />
+                        Command="{Binding LoginCommand}"
+                        Classes="Outline"/>
                 <Button Content="Очистить"
-                        Command="{Binding Clear}"
-                        Classes="button_clear" />
+                        Command="{Binding ClearCommand}"
+                        Classes="Outline Dark"/>
             </StackPanel>
 
-            <TextBlock Text="{Binding Output}" />
+            <TextBlock Text="{Binding Output}"
+                       Width="250"
+                       HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 
