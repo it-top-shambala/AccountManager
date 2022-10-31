@@ -1,109 +1,212 @@
 ﻿@startuml
 'https://plantuml.com/class-diagram
 
-interface AbstractModel
-interface ICrud
-abstract class AbstractTable
+'''
+'Models
+namespace Models {
+    interface IModel
 
-AbstractModel <|.. User
-AbstractModel <|.. Role
-AbstractModel <|.. Account
+    IModel <|.. User
+    class User {
+        {field} +FirstName {get; set;} : string
+        {field} +LastName {get; set;} : string
+        {field} +Email {get; set;} : string
+        {field} +Tel {get; set;} : string
+    }
 
-ICrud <|.. AbstractTable
-AbstractTable <|-- TableRoles
-AbstractTable <|-- TableUsers
-AbstractTable <|-- TableAccounts
+    IModel <|.. Role
+    class Role {
+        {field} +Name { get; set; } : string
+    }
 
-AbstractModel <.. ICrud
-AbstractModel <.. AbstractTable
-
-Role <.. TableRoles
-User <.. TableUsers
-Account <.. TableAccounts
-
-ICrud *-- RoleServices
-Role <.. RoleServices
-
-abstract class AbstractModel {
-    {field} +Id {get; set;} : int
+    IModel <|.. Account
+    class Account
+    {
+        {field} +Login { get; set; } : string
+        {field} +Password { get; set; } : string
+        {field} +IsDelete { get; set; } : bool
+        {field} +RoleId { get; set; } : int
+    }
 }
 
-class User {
-    {field} +FirstName {get; set;} : string
-    {field} +LastName {get; set;} : string
-    {field} +Email {get; set;} : string
-    {field} +Tel {get; set;} : string
+'''
+'DAL
+namespace DAL {
+    IModel <.. ICrud
+    interface ICrud<T>
+    {
+        {method} +Insert(model : T) : void
+        {method} +GetAll() : IEnumerable<T>
+        {method} +GetById(id : int) : T
+        {method} +void Update(model : T) : void
+        {method} +void Delete(id : int) : void
+    }
+
+    ICrud *-- AbstractBaseContext
+    Role <.. AbstractBaseContext
+    Account <.. AbstractBaseContext
+    User <.. AbstractBaseContext
+    abstract class AbstractBaseContext {
+        {field} +ContextRoles : ICrud<Role>
+        {field} +ContextAccounts : ICrud<Account>
+        {field} +ContextUsers : ICrud<User>
+
+        {method} #AbstractBaseContext(contextRoles : ICrud<Role>, contextAccounts : ICrud<Account>, contextUsers : ICrud<User>)
+    }
+
+    'DAL.Tables
+    namespace Tables {
+        ICrud <|.. AbstractTable
+        IModel <.. AbstractTable
+        abstract class AbstractTable<T>
+        {
+            {field} #Db : MySqlConnection readonly
+            {field} #SqlCommand : MySqlCommand readonly
+
+            {method} #AbstractTable()
+
+            {abstract} +Insert(model : T) : void
+            {abstract} +GetAll() : IEnumerable<T>
+            {abstract} +GetById(id : int) : T
+            {abstract} +void Update(model : T) : void
+            {abstract} +void Delete(id : int) : void
+
+            {method} #GetEntityById(sql : string) : T
+            {method} #GetAllEntities(sql : string) : IEnumerable<T>
+            {method} #UpdateEntity(sql : string) : void
+        }
+
+        AbstractTable <|-- TableRoles
+        Role <.. TableRoles
+        class TableRoles {
+            {method} +Insert(model : Role) : void
+            {method} +GetAll() : IEnumerable<Role>
+            {method} +GetById(id : int) : Role
+            {method} +void Update(model : Role) : void
+            {method} +void Delete(id : int) : void
+        }
+
+        AbstractTable <|-- TableUsers
+        User <.. TableUsers
+        class TableUsers {
+            {method} +Insert(model : User) : void
+            {method} +GetAll() : IEnumerable<User>
+            {method} +GetById(id : int) : User
+            {method} +void Update(model : User) : void
+            {method} +void Delete(id : int) : void
+        }
+
+        AbstractTable <|-- TableAccounts
+        Account <.. TableAccounts
+        class TableAccounts {
+            {method} +Insert(model : Account) : void
+            {method} +GetAll() : IEnumerable<Account>
+            {method} +GetById(id : int) : Account
+            {method} +void Update(model : Account) : void
+            {method} +void Delete(id : int) : void
+        }
+    }
+
+    AbstractBaseContext <|-- DataBaseContext
+    TableAccounts <.. DataBaseContext
+    TableUsers <.. DataBaseContext
+    TableRoles <.. DataBaseContext
+    class DataBaseContext {
+        {method} +DataBaseContext()
+    }
 }
 
-class Role {
-    {field} +Name { get; set; } : string
+'''
+'BL
+namespace BL {
+    ICrud <|.. RoleServices
+    ICrud *-- RoleServices
+    Role <.. RoleServices
+    class RoleServices {
+        {field} -_crud : ICrud<Role> readonly
+
+        {method} #RoleServices(crud : ICrud<Role>)
+
+        {method} +Insert(model : Role) : void
+        {method} +GetAll() : IEnumerable<Role>
+        {method} +GetById(id : int) : Role
+        {method} +void Update(model : Role) : void
+        {method} +void Delete(id : int) : void
+    }
+
+    ICrud <|.. UserServices
+    ICrud *-- UserServices
+    User <.. UserServices
+    class UserServices {
+        {field} -_crud : ICrud<User> readonly
+
+        {method} #UserServices(crud : ICrud<User>)
+
+        {method} +Insert(model : User) : void
+        {method} +GetAll() : IEnumerable<User>
+        {method} +GetById(id : int) : User
+        {method} +void Update(model : User) : void
+        {method} +void Delete(id : int) : void
+    }
+
+    ICrud <|.. AccountServices
+    ICrud *-- AccountServices
+    Account <.. AccountServices
+    class AccountServices {
+        {field} -_crud : ICrud<Account> readonly
+
+        {method} #AccountServices(crud : ICrud<Account>)
+
+        {method} +Insert(model : Account) : void
+        {method} +GetAll() : IEnumerable<Account>
+        {method} +GetById(id : int) : Account
+        {method} +void Update(model : Account) : void
+        {method} +void Delete(id : int) : void
+    }
+
+    AccountServices <.. Services
+    UserServices <.. Services
+    RoleServices <.. Services
+    AbstractBaseContext *-- Services
+    class Services {
+        {field} +AccountsServices : AccountsServices
+        {field} +UserServices : UserServices
+        {field} +RolesServices : RolesServices
+
+        {method} +Services(baseContext : AbstractBaseContext)
+    }
+
+    Services *-- DataContext
+    Role <.. DataContext
+    Account <.. DataContext
+    User <.. DataContext
+    class DataContext {
+        {field} +Roles : IEnumerable<Role>
+        {field} +Accounts : IEnumerable<Account>
+        {field} +Users : IEnumerable<User>
+
+        {field} -_services : Services
+
+        {method} +DataContext(services : Services)
+
+        {method} +LoadData() : void
+        {method} -Login(login : string, password : string) : Account?
+        {method} -GetRole(int id) : Role?
+        {method} +Auth(string login, string password) : (bool, string, string)
+    }
 }
 
-class Account
-{
-    {field} +Login { get; set; } : string
-    {field} +Password { get; set; } : string
-    {field} +IsDelete { get; set; } : bool
-    {field} +RoleId { get; set; } : int
-}
+'''
+'Avalonia
+namespace App.Avalonia {
+    class ReactiveObject
 
-interface ICrud<T>
-{
-    {method} +Insert(model : T) : void
-    {method} +GetAll() : IEnumerable<T>
-    {method} +GetById(id : int) : T
-    {method} +void Update(model : T) : void
-    {method} +void Delete(id : int) : void
-}
+    class ViewModelBase extends ReactiveObject
 
-abstract class AbstractTable<T>
-{
-    {field} #Db : MySqlConnection readonly
-    {field} #SqlCommand : MySqlCommand readonly
-    
-    {method} #AbstractTable()
-    
-    {method} +Insert(model : T) : void
-    {method} +GetAll() : IEnumerable<T>
-    {method} +GetById(id : int) : T
-    {method} +void Update(model : T) : void
-    {method} +void Delete(id : int) : void
-}
+    class MainWindowViewModel extends ViewModelBase
 
-class TableRoles {
-    {method} +Insert(model : Role) : void
-    {method} +GetAll() : IEnumerable<Role>
-    {method} +GetById(id : int) : Role
-    {method} +void Update(model : Role) : void
-    {method} +void Delete(id : int) : void
-}
-
-class TableUsers {
-    {method} +Insert(model : User) : void
-    {method} +GetAll() : IEnumerable<User>
-    {method} +GetById(id : int) : User
-    {method} +void Update(model : User) : void
-    {method} +void Delete(id : int) : void
-}
-
-class TableAccounts {
-    {method} +Insert(model : Account) : void
-    {method} +GetAll() : IEnumerable<Account>
-    {method} +GetById(id : int) : Account
-    {method} +void Update(model : Account) : void
-    {method} +void Delete(id : int) : void
-}
-
-class RoleServices {
-    {field} -_crud : ICrud<Role> readonly
-    
-    {method} #RoleServices(crud : ICrud<Role>)
-    
-    {method} +Insert(model : Role) : void
-    {method} +GetAll() : IEnumerable<Role>
-    {method} +GetById(id : int) : Role
-    {method} +void Update(model : Role) : void
-    {method} +void Delete(id : int) : void
+    MainWindowViewModel <.. MainWindow
+    class MainWindow
 }
 
 @enduml
