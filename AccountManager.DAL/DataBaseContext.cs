@@ -1,4 +1,6 @@
-﻿namespace AccountManager.DAL.Tables;
+﻿using AccountManager.DAL.Tables;
+
+namespace AccountManager.DAL;
 
 public class DataBaseContext : AbstractBaseContext
 {

@@ -1,6 +1,6 @@
 ﻿using System.Reactive;
 using AccountManager.BL;
-using AccountManager.DAL.Tables;
+using AccountManager.DAL;
 using ReactiveUI;
 
 namespace AccountManager.App.Avalonia.ViewModels;
