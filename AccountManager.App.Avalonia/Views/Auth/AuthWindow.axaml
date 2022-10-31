@@ -6,12 +6,12 @@
         xmlns:p1="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
         mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="300"
         Width="450" Height="300"
-        x:Class="AccountManager.App.Avalonia.Views.MainWindow"
+        x:Class="AccountManager.App.Avalonia.Views.Auth.AuthWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="AccountManager.App.Avalonia">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel />
+        <vm:AuthViewModel />
     </Design.DataContext>
 
     <Grid RowDefinitions="*, 3*">

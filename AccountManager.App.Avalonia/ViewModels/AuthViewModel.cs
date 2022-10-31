@@ -1,11 +1,12 @@
 ﻿using System.Reactive;
+using AccountManager.App.Avalonia.Views.UserProfile;
 using AccountManager.BL;
 using AccountManager.DAL;
 using ReactiveUI;
 
 namespace AccountManager.App.Avalonia.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public class AuthViewModel : ViewModelBase
 {
     #region Variables
 
@@ -44,7 +45,7 @@ public class MainWindowViewModel : ViewModelBase
 
     #region Constructor
 
-    public MainWindowViewModel()
+    public AuthViewModel()
     {
         ClearCommand = ReactiveCommand.Create(Clear);
         LoginCommand = ReactiveCommand.Create(Login);
@@ -65,8 +66,14 @@ public class MainWindowViewModel : ViewModelBase
         var db = new DataContext(new Services(new DataBaseContext()));
         db.LoadData();
 
-        var res = db.Auth(InputLogin, InputPassword);
-        Output = res.result ? $"Вы успешно авторизовались. Ваша роль - {res.roleName}" : res.errorMsg;
+        var result = db.Auth(InputLogin, InputPassword);
+        //Output = res.result ? $"Вы успешно авторизовались. Ваша роль - {res.roleName}" : res.errorMsg;
+
+        if (result.roleName == "user")
+        {
+            var userProfileWindow = new UserProfileWindow { DataContext = new UserProfileViewModel(result.accountId) };
+            userProfileWindow.Show();
+        }
     }
 
     #endregion
