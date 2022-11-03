@@ -1,5 +1,4 @@
 ﻿using System.Reactive;
-using AccountManager.App.Avalonia.Views.UserProfile;
 using AccountManager.BL;
 using AccountManager.DAL;
 using ReactiveUI;
@@ -8,10 +7,20 @@ namespace AccountManager.App.Avalonia.ViewModels;
 
 public class AuthViewModel : ViewModelBase
 {
-    #region Variables
+    private bool _canExecute;
+    public bool CanExecute {
+        get { return _canExecute; }
+        set { this.RaiseAndSetIfChanged(ref _canExecute, value); }
+    }
+
+    private AccountViewModel? _accountViewModel;
+    public AccountViewModel? AccountViewModel
+    {
+        get => _accountViewModel;
+        set => this.RaiseAndSetIfChanged(ref _accountViewModel, value);
+    }
 
     private string _login;
-
     public string InputLogin
     {
         get => _login;
@@ -19,7 +28,6 @@ public class AuthViewModel : ViewModelBase
     }
 
     private string _password;
-
     public string InputPassword
     {
         get => _password;
@@ -27,38 +35,28 @@ public class AuthViewModel : ViewModelBase
     }
 
     private string _output;
-
     public string Output
     {
         get => _output;
         set => this.RaiseAndSetIfChanged(ref _output, value);
     }
 
-    #endregion
-
-    #region Commands
-
     public ReactiveCommand<Unit, Unit> ClearCommand { get; }
     public ReactiveCommand<Unit, Unit> LoginCommand { get; }
-
-    #endregion
-
-    #region Constructor
+    public ReactiveCommand<Unit, AccountViewModel?> AuthCommand { get; }
 
     public AuthViewModel()
     {
-        ClearCommand = ReactiveCommand.Create(Clear);
+        ClearCommand = ReactiveCommand.Create(() =>
+        {
+            InputLogin = "";
+            InputPassword = "";
+            Output = "";
+        });
+
         LoginCommand = ReactiveCommand.Create(Login);
-    }
-
-    #endregion
-
-    #region Methods
-
-    private void Clear()
-    {
-        InputLogin = string.Empty;
-        InputPassword = string.Empty;
+        CanExecute = false;
+        AuthCommand = ReactiveCommand.Create(() => AccountViewModel, this.WhenAnyValue(f => f.CanExecute));
     }
 
     private void Login()
@@ -67,14 +65,22 @@ public class AuthViewModel : ViewModelBase
         db.LoadData();
 
         var result = db.Auth(InputLogin, InputPassword);
-        //Output = res.result ? $"Вы успешно авторизовались. Ваша роль - {res.roleName}" : res.errorMsg;
+        Output = result.result ? $"Вы успешно авторизовались. Ваша роль - {result.roleName}" : result.errorMsg;
 
-        if (result.roleName == "user")
+        if (result.result)
         {
-            var userProfileWindow = new UserProfileWindow { DataContext = new UserProfileViewModel(result.accountId) };
-            userProfileWindow.Show();
+            AccountViewModel = new AccountViewModel
+            {
+                AccountId = result.accountId,
+                Login = result.login,
+                RoleName = result.roleName
+            };
+            CanExecute = true;
+        }
+        else
+        {
+            AccountViewModel = null;
+            CanExecute = false;
         }
     }
-
-    #endregion
 }

@@ -32,20 +32,20 @@ public class DataContext
         return Roles.FirstOrDefault(r => r.RoleId == id);
     }
 
-    public (bool result, string errorMsg, string roleName, int accountId) Auth(string login, string password)
+    public (bool result, string errorMsg, string roleName, int accountId, string login) Auth(string login, string password)
     {
         var account = Login(login, password);
         if (account is null)
         {
-            return (result: false, errorMsg: "Пользователь с такими логином и паролем не найден.", string.Empty, 0);
+            return (result: false, errorMsg: "Пользователь с такими логином и паролем не найден.", string.Empty, 0, "");
         }
 
         var role = GetRole(account.RoleId);
         if (role is null)
         {
-            return (result: false, errorMsg: "Непредвиденная ошибка", string.Empty, 0);
+            return (result: false, errorMsg: "Непредвиденная ошибка", string.Empty, 0, "");
         }
 
-        return (result: true, errorMsg: string.Empty, role.Name, account.AccountId);
+        return (result: true, errorMsg: string.Empty, role.Name, account.AccountId, account.Login);
     }
 }

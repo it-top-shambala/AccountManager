@@ -36,12 +36,12 @@
     <ProjectReference Include="..\AccountManager.Models\AccountManager.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\Auth\AuthWindow.axaml.cs">
-      <DependentUpon>AuthWindow.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\UserProfile\UserProfileWindow.axaml.cs">
       <DependentUpon>UserProfileWindow.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MainWindow.axaml.cs">
+      <DependentUpon>MainWindow.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
